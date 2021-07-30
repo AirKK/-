@@ -1,8 +1,23 @@
 //基于axios封装的请求模块
 import axios from 'axios'
+//导入JSON-bigint
+// import Jsonbigint from 'json-bigint'
 // 创建一个 axios 实例
 const request = axios.create({
-    baseURL:'http://api-toutiao-web.itheima.net'
+  baseURL: 'http://api-toutiao-web.itheima.net',
+  //
+  // transformResponse: [function (data) {
+  //   //axios会默认使用JSON.parse对数据进行转换当id数值过大便会出现错误
+  //   //使用json-bigint可以解决
+  //   //使用try-catch捕捉错误，处理异常
+  //   try {
+  //     return Jsonbigint.parse(data)
+  //   } catch (err) {
+  //     console.log(err, '转换失败');
+  //     return data
+  //   }
+    
+  // }],
 })
 // 请求拦截器
 request.interceptors.request.use(

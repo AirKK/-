@@ -1,10 +1,10 @@
 <template>
-  <el-menu default-active="1" class="el-menu-vertical-demo" :collapse="isCollapse">
-    <el-menu-item index="1">
+  <el-menu default-active="/" class="el-menu-vertical-demo" :collapse="isCollapse" router>
+    <el-menu-item index="/">
       <i class="el-icon-location"></i>
       <span slot="title">首页</span>
     </el-menu-item>
-    <el-menu-item index="2">
+    <el-menu-item index="/article">
       <!-- 使用iconfont图标时候要先注明iconfont再写图标名 -->
       <span slot="title">内容管理</span>
       <i class="iconfont icon-pinglun"></i>

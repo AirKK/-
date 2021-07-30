@@ -2,6 +2,7 @@ import VueRouter from "vue-router"
 import Login from '../pages/Login/login'
 import Home from '@/pages/home'
 import Layout from '@/pages/layout'
+import Article from '@/pages/article'
 
 
 //创建并暴露一个路由器
@@ -16,9 +17,14 @@ const router = new VueRouter({
         component: Layout,
         children: [
             {
-                path: '/home',
+                path: '',
                 name: 'home',
                 component: Home
+            },
+            {
+                path: '/article',
+                name: 'article',
+                component: Article
             }
         ]
     }
@@ -28,13 +34,13 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     const user = JSON.parse(window.localStorage.getItem('user'))
     //如果前往的页面不是登录界面需要校验用户信息
-    if (to.path != '/login') {
+    if (to.path !== '/login') {
         //如果用户信息存在于本地存储中允许通过
         if (user) {
             next()
         } else {
             //没有登录信息跳转回登录页面
-           this.$router.push('/login')
+           next('/login')
         }
     } else {
         next()
