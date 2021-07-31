@@ -63,7 +63,7 @@ export default {
         .then(() => {
           // 退出登录
           // 清空本地存储
-          window.localStorage.removeItem("user");
+          window.sessionStorage.removeItem("user");
           // 跳转回登录页面
           this.$router.push({
             name: "login",

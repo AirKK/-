@@ -2,11 +2,13 @@
   <div class="articleContainer">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
+        <!-- 面包屑 -->
         <el-breadcrumb separator-class="el-icon-arrow-right">
           <el-breadcrumb-item to="/">首页</el-breadcrumb-item>
           <el-breadcrumb-item>内容管理</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
+      <!-- 搜索栏 -->
       <el-form ref="form" :model="form" label-width="80px" size="small">
         <el-form-item label="状态">
           <el-radio-group v-model="articleStatus">
@@ -20,6 +22,7 @@
         </el-form-item>
         <el-form-item label="频道">
           <el-select v-model="channelId" placeholder="请选择频道">
+            <el-option label="全部" :value="null"></el-option>
             <el-option
               v-for="(channel, index) in channels"
               :key="index"
@@ -52,6 +55,7 @@
         </el-form-item>
       </el-form>
     </el-card>
+    <!-- 搜索结果栏 -->
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         根据筛选条件共查询到 {{ totalCount }} 条结果：
@@ -104,7 +108,7 @@
               type="primary"
               icon="el-icon-edit"
               circle
-              @click="articleEdit"
+              @click="articleEdit(scope.row.id.toString())"
             ></el-button>
             <el-button
               size="small"
@@ -116,7 +120,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <!-- /数据列表 -->
 
       <!-- 列表分页 -->
       <el-pagination
@@ -177,10 +180,12 @@ export default {
       this.loadArticle();
     },
     //编辑文章
-    articleEdit() {},
+    articleEdit(id) {
+      this.$router.push(`/publish?id=${id}`);
+    },
+
     //删除文章
     articleDelete(deleteId) {
-      console.log(deleteId);
       this.$confirm("是否确定删除？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",

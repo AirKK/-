@@ -20,7 +20,7 @@ export const getArticleChannels = () => {
         // Body 参数使用 data 设置
         // Query 参数使用 params 设置
         // Headers 参数使用 headers 设置
-        
+
     })
 }
 
@@ -32,6 +32,38 @@ export const deleteArticle = (deleteId) => {
         // Body 参数使用 data 设置
         // Query 参数使用 params 设置
         // Headers 参数使用 headers 设置
-        
+
+    })
+}
+
+//发布文章请求
+export const addArticle = (data, draft = false) => {
+    return request({
+        method: 'POST',
+        url: '/mp/v1_0/articles',
+        data,
+        params: {
+            draft
+        }
+    })
+}
+//获取指定文章
+export const getTargetArticle = (articleId) => {
+    return request({
+        method: 'GET',
+        url:`/mp/v1_0/articles/${articleId}`,
+
+    })
+}
+
+//编辑文章
+export const editArticle = (data, articleId, draft = false) => {
+    return request({
+        method: 'PUT',
+        url: `/mp/v1_0/articles/${articleId}`,
+        data,
+        params: {
+            draft
+        }
     })
 }

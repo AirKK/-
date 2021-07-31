@@ -1,5 +1,17 @@
 <template>
-  <el-menu default-active="/" class="el-menu-vertical-demo" :collapse="isCollapse" router>
+  <el-menu
+    default-active="/"
+    class="el-menu-vertical-demo"
+    :collapse="isCollapse"
+    background-color="#545c64"
+    text-color="#fff"
+    active-text-color="#ffd04b"
+    router
+    style="border-right:0"
+  >
+   <el-menu-item class="logImg" index="/">
+     
+    </el-menu-item>
     <el-menu-item index="/">
       <i class="el-icon-location"></i>
       <span slot="title">首页</span>
@@ -13,7 +25,7 @@
       <i class="iconfont icon-shuyi_sucaiguanli"></i>
       <span slot="title">素材管理</span>
     </el-menu-item>
-    <el-menu-item index="4">
+    <el-menu-item index="publish">
       <i class="iconfont icon-fabuwenzhang"></i>
       <span slot="title">发布文章</span>
     </el-menu-item>
@@ -35,13 +47,22 @@
 <script>
 export default {
   name: "Aside",
-  props:['is-collapse']
+  props: ["is-collapse"],
 };
 </script>
 
 <style>
-.iconfont{
+.iconfont {
   margin-left: 4px;
   margin-right: 9px;
+}
+.el-menu-item * {
+    font-size: 15px
+}
+.el-menu {
+    border:0
+}
+.logImg{
+  
 }
 </style>

@@ -92,7 +92,7 @@ export default {
             });
             //将接口返回的用户数据放入本地存储，方便共享
             //因为本地存储的key值是字符串所以要使用JSON.stringify转换为JSON字符串
-            window.localStorage.setItem("user", JSON.stringify(res.data.data));
+            window.sessionStorage.setItem("user", JSON.stringify(res.data.data));
             //跳转页面
             this.$router.push({
               name: "home",
