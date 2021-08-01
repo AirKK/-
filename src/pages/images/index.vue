@@ -8,17 +8,30 @@
       </el-breadcrumb>
     </div>
 
-    <el-radio-group v-model="tabPosition" style="margin-bottom: 30px">
-      <el-radio-button label="all" @click.native="loadImages(false)"
+    <el-radio-group
+      v-model="tabPosition"
+      style="margin-bottom: 30px; width: 100%; position: relative"
+    >
+      <el-radio-button
+        label="all"
+        @click.native="
+          page = 1;
+          loadImages(false, 1);
+        "
         >全部</el-radio-button
       >
-      <el-radio-button label="collect" @click.native="loadImages(true)"
+      <el-radio-button
+        label="collect"
+        @click.native="
+          page = 1;
+          loadImages(true, 1);
+        "
         >收藏</el-radio-button
       >
 
       <!-- 上传图片模块 -->
 
-      <span style="position: absolute; right: 100px">
+      <span style="position: absolute; right: 10px">
         <el-button type="primary" @click="dialogTableVisible = true">
           上传
           <i class="el-icon-upload el-icon--right"></i>
@@ -35,6 +48,7 @@
               :headers="uploadHeader"
               name="image"
               :on-success="onUpLoadSuccess"
+              :on-error="onUpLoadFail"
             >
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">
@@ -53,19 +67,28 @@
     <div class="user-image">
       <el-row :gutter="20">
         <el-col
-          :xs="8"
-          :sm="6"
+          :xs="12"
+          :sm="8"
           :md="6"
           :lg="4"
           v-for="(image, index) in images"
           :key="index"
+          style="margin-bottom: 20px"
         >
-          <div>
-            <el-image style="height: 200px" :src="image.url" fit="fit">
+          <div style="position: relative">
+            <el-image style="height: 200px" :src="image.url">
               <div slot="error" class="image-slot">
-                <img src="./暂无封面.jpg" alt="" />
+                <img
+                  src="./暂无封面.jpg"
+                  alt=""
+                  style="height: 100%; width: 100%"
+                />
               </div>
             </el-image>
+            <div class="sart-collect" style="">
+              <i class="el-icon-delete-solid"></i>
+              <i class="el-icon-star-on"></i>
+            </div>
           </div>
         </el-col>
       </el-row>
@@ -76,9 +99,10 @@
       layout="prev, pager, next"
       background
       :total="total_count"
-      :page-size="24"
+      :page-size="18"
       @current-change="onCurrenChange"
       class="pagination"
+      :current-page.sync="page"
     >
     </el-pagination>
   </el-card>
@@ -104,11 +128,10 @@ export default {
   methods: {
     loadImages(collect = false) {
       getImages({
-        per_page: 24,
+        per_page: 18,
         page: this.page,
         collect,
       }).then((res) => {
-        console.log(res);
         this.images = res.data.data.results;
         this.total_count = res.data.data.total_count;
       });
@@ -121,6 +144,13 @@ export default {
       //关闭上传框
       this.dialogTableVisible = false;
       this.loadImages();
+      this.$message({
+        message: "上传成功",
+        type: "success",
+      });
+    },
+    onUpLoadFail() {
+      this.$message.error("上传失败，请检查文件格式并重传");
     },
   },
   created() {
@@ -130,4 +160,25 @@ export default {
 </script>
 
 <style>
+.sart-collect {
+  background: rgba(67, 74, 80, 0.4);
+  position: absolute;
+  width: 100%;
+  height: 45px;
+  bottom: 4px;
+  font-size: 25px;
+}
+.el-icon-delete-solid {
+  position: absolute;
+  bottom: 8px;
+  left: 50px;
+  color: #fff;
+}
+.el-icon-star-on {
+  position: absolute;
+  bottom: 8px;
+  right: 50px;
+  color: #fff;
+  transform: scale(1.3);
+}
 </style>
