@@ -4,6 +4,7 @@ import Home from '@/pages/home'
 import Layout from '@/pages/layout'
 import Article from '@/pages/article'
 import Publish from '@/pages/publish'
+import Images from '@/pages/images'
 
 
 //创建并暴露一个路由器
@@ -31,6 +32,11 @@ const router = new VueRouter({
                 path: '/publish',
                 name: 'publish',
                 component: Publish
+            },
+            {
+                path: '/images',
+                name: 'images',
+                component: Images
             }
         ]
     }

@@ -130,7 +130,6 @@
         class="pagination"
       >
       </el-pagination>
-      <!-- /列表分页 -->
     </el-card>
   </div>
 </template>

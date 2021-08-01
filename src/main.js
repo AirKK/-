@@ -22,6 +22,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 
 Vue.use(VueRouter)//应用插件
+
 //创建vue实例
 // 添加router配置
 // 使用render方法将app根组件渲染到页面上
