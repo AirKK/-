@@ -29,15 +29,15 @@
       <i class="iconfont icon-fabuwenzhang"></i>
       <span slot="title">发布文章</span>
     </el-menu-item>
-    <el-menu-item index="5">
+    <el-menu-item index="comment">
       <i class="iconfont icon-pinglun"></i>
       <span slot="title">评论管理</span>
     </el-menu-item>
-    <el-menu-item index="6">
+    <el-menu-item index="fans">
       <i class="iconfont icon-fensiguanli"></i>
       <span slot="title">粉丝管理</span>
     </el-menu-item>
-    <el-menu-item index="7">
+    <el-menu-item index="settings">
       <i class="iconfont el-icon-setting"></i>
       <span slot="title">个人设置</span>
     </el-menu-item>
@@ -62,7 +62,5 @@ export default {
 .el-menu {
     border:0
 }
-.logImg{
-  
-}
+
 </style>

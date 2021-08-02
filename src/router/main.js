@@ -5,7 +5,9 @@ import Layout from '@/pages/layout'
 import Article from '@/pages/article'
 import Publish from '@/pages/publish'
 import Images from '@/pages/images'
-
+import Comment from '@/pages/comment'
+import Settings from '@/pages/settings'
+import Fans from '@/pages/fans'
 
 //创建并暴露一个路由器
 const router = new VueRouter({
@@ -37,6 +39,21 @@ const router = new VueRouter({
                 path: '/images',
                 name: 'images',
                 component: Images
+            },
+            {
+                path: '/comment',
+                name: 'comment',
+                component: Comment
+            },
+            {
+                path: '/settings',
+                name: 'settings',
+                component: Settings
+            },
+            {
+                path: '/fans',
+                name: 'fans',
+                component:Fans
             }
         ]
     }

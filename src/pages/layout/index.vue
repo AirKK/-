@@ -19,7 +19,7 @@
               <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>设置</el-dropdown-item>
+              <el-dropdown-item @click.native="setting">设置</el-dropdown-item>
               <el-dropdown-item @click.native="quit">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -37,7 +37,7 @@
 <script>
 import Aside from "./components/aside.vue";
 import { getUserProfile } from "@/api/user";
-// import { getUserProfile } from "@/api/user";
+
 export default {
   data() {
     return {
@@ -53,6 +53,9 @@ export default {
     },
     Collapse() {
       this.isCollapse = !this.isCollapse;
+    },
+    setting(){
+      this.$router.push('settings')
     },
     quit() {
       this.$confirm("是否确定退出？", "提示", {
@@ -85,6 +88,10 @@ export default {
 
   created() {
     this.logUserProfile();
+    this.$bus.$on('update-user',(data)=>{
+      this.userProfile.name=data.name
+      this.userProfile.photo=data.photo
+    })
   },
 };
 </script>

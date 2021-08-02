@@ -76,7 +76,10 @@
           style="margin-bottom: 20px"
         >
           <div style="position: relative">
-            <el-image style="height: 200px" :src="image.url">
+            <el-image
+              style="height: 200px "
+              :src="image.url"
+            >
               <div slot="error" class="image-slot">
                 <img
                   src="./暂无封面.jpg"
@@ -86,8 +89,14 @@
               </div>
             </el-image>
             <div class="sart-collect" style="">
-              <i class="el-icon-delete-solid"></i>
-              <i class="el-icon-star-on"></i>
+              <i class="el-icon-delete-solid" @click="onDelete(image)"></i>
+              <i
+                :class="
+                  image.is_collected ? 'el-icon-star-on' : 'el-icon-star-off'
+                "
+                @click="onCollect(image)"
+              >
+              </i>
             </div>
           </div>
         </el-col>
@@ -109,7 +118,7 @@
 </template>
 
 <script>
-import { getImages } from "@/api/material";
+import { getImages, collectImage, deleteImage } from "@/api/material";
 export default {
   name: "imageIndex",
   data() {
@@ -126,6 +135,7 @@ export default {
     };
   },
   methods: {
+    //加载图片
     loadImages(collect = false) {
       getImages({
         per_page: 18,
@@ -136,10 +146,14 @@ export default {
         this.total_count = res.data.data.total_count;
       });
     },
+
+    //页码发生变化刷新页码
     onCurrenChange(page) {
       this.page = page;
       this.loadImages();
     },
+
+    // 上传图片成功关闭对话框刷新页面
     onUpLoadSuccess() {
       //关闭上传框
       this.dialogTableVisible = false;
@@ -149,8 +163,24 @@ export default {
         type: "success",
       });
     },
+
+    //上传失败
     onUpLoadFail() {
       this.$message.error("上传失败，请检查文件格式并重传");
+    },
+
+    onCollect(img) {
+      collectImage(img.id, !img.is_collected).then(() => {
+        // 更新视图状态
+        img.is_collected = !img.is_collected;
+      });
+    },
+
+    onDelete(img) {
+      deleteImage(img.id).then(() => {
+        // 重新加载数据列表
+        this.loadImages();
+      });
     },
   },
   created() {
@@ -174,7 +204,8 @@ export default {
   left: 50px;
   color: #fff;
 }
-.el-icon-star-on {
+.el-icon-star-on,
+.el-icon-star-off {
   position: absolute;
   bottom: 8px;
   right: 50px;
