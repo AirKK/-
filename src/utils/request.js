@@ -4,7 +4,7 @@ import axios from 'axios'
 import Jsonbigint from 'json-bigint'
 // 创建一个 axios 实例
 const request = axios.create({
-  baseURL: 'http://api-toutiao-web.itheima.net',
+  baseURL: '//api-toutiao-web.itheima.net',
   //
   transformResponse: [function (data) {
     //axios会默认使用JSON.parse对数据进行转换当id数值过大便会出现错误
