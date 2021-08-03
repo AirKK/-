@@ -27,14 +27,26 @@
           />
         </div>
       </el-form-item>
+      <div></div>
       <el-form-item label="封面">
         <el-radio-group v-model="publish.cover.type">
           <el-radio :label="1">单图</el-radio>
           <el-radio :label="3">三图</el-radio>
           <el-radio :label="0">无图</el-radio>
-          <el-radio :label="-1">自动</el-radio>
         </el-radio-group>
       </el-form-item>
+      <!-- 自定义事件如果想传递自定义参数还想得到默认参数可以使用$event -->
+      <!-- 上传封面模块 -->
+      <template>
+        <UploadCover
+          v-for="(cover, index) in publish.cover.type"
+          :key="cover"
+          class="cover"
+          @coverImgUrl="acceptUrl(index, $event)"
+          :coverImg="publish.cover.images[index]"
+        />
+      </template>
+
       <el-form-item label="频道" prop="channel_id">
         <el-select v-model="publish.channel_id" placeholder="请选择频道">
           <el-option
@@ -61,6 +73,7 @@
 </template>
 
 <script>
+import UploadCover from "./component/UploadCover.vue";
 import {
   getArticleChannels,
   addArticle,
@@ -98,7 +111,7 @@ export default {
         title: "",
         content: "",
         cover: {
-          type: 5,
+          type: 0,
           images: [],
         },
         channel_id: null,
@@ -205,9 +218,14 @@ export default {
         this.publish = response;
       });
     },
+    //接收子组件传递的图片
+    acceptUrl(index, url) {
+      this.publish.cover.images[index] = url;
+    },
   },
   components: {
     "el-tiptap": ElementTiptap,
+    UploadCover,
   },
   computed: {
     queryId() {
@@ -227,4 +245,9 @@ export default {
 </script>
 
 <style>
+.cover {
+  display: inline-block;
+  margin-left: 80px;
+  margin-bottom: 20px;
+}
 </style>
